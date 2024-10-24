@@ -43,8 +43,12 @@ nav ul {
 
 nav ul li {
   list-style: none;
-  color: white;
   padding: 1rem 0;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
 }
 
 .hero {
