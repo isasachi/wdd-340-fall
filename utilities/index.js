@@ -64,4 +64,31 @@ Util.buildClassificationGrid = async function(data){
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
+/* **************************************
+* Build the detail view HTML
+* ************************************ */
+Util.buildDetailContent = async function(data){
+  let content
+  if(data.length > 0){
+    content = `<div id="detail-display">
+      <img src="${data[0].inv_image}" alt="${data[0].inv_make} ${data[0].inv_model}">
+      <div class="detail-data">
+        <h1>
+          <a href="../../inv/detail/${data[0].inv_id}">${data[0].inv_make} ${data[0].inv_model}</a>
+        </h1>
+        <p class="detail-price">$${new Intl.NumberFormat('en-US').format(data[0].inv_price)}</p>
+        <ul>
+          <li><strong>Description: </strong>${data[0].inv_description}</li>
+          <li><strong>Year: </strong>${data[0].inv_year}</li>
+          <li><strong>Color: </strong>${data[0].inv_color}</li>
+          <li><strong>Mileage: </strong>${new Intl.NumberFormat('en-US').format(data[0].inv_miles)}</li>
+        </ul>
+      </div>
+    </div>`
+  } else { 
+    content += '<p class="notice">Sorry, no matching vehicle could be found.</p>'
+  }
+  return content
+}
+
 module.exports = Util
